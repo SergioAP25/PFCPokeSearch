@@ -5,10 +5,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.sergio.pfcpokesearch.databinding.LoginActivityBinding
+import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 
 // Anotación que prepara la clase para ser inyectada e inyectar dependencias de la librería de DaggerHilt
-@HiltAndroidApp
+@AndroidEntryPoint
 class LoginActivity: AppCompatActivity() {
     // Instanciación del binding (Clase generada automáticamente al crear el XML)
     // Haciendo uso de la funcionalidad ViewBinding de Kotlin
