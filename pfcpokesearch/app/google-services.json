@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "797205993829",
+    "project_id": "pfc-pokesearch",
+    "storage_bucket": "pfc-pokesearch.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:797205993829:android:0f2c6015f272063d5ce98c",
+        "android_client_info": {
+          "package_name": "com.sergio.pfcpokesearch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "797205993829-se6hkupr294oo1g8l01jn2jv3gmj5oad.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sergio.pfcpokesearch",
+            "certificate_hash": "861d37224ec377ce5ad173bf5a91c3a404ddc41b"
+          }
+        },
+        {
+          "client_id": "797205993829-j3ni8tf7jo3uu9me7vglvjutm3lfhech.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYv5ptoDnwZ5W-fK2AqHtvAZ_iDUjvnwQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "797205993829-j3ni8tf7jo3uu9me7vglvjutm3lfhech.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
