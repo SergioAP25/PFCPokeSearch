@@ -16,6 +16,7 @@ class OptionsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentOptionsBinding.inflate(layoutInflater)
 
         return binding.root
     }
