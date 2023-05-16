@@ -2,8 +2,10 @@ package com.sergio.pfcpokesearch.ui.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.sergio.pfcpokesearch.databinding.LoginActivityBinding
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
@@ -24,6 +26,45 @@ class LoginActivity: AppCompatActivity() {
 
         // asignamos la vista del binding
         setContentView(binding.root)
+        initUI()
+    }
+
+    private fun initUI() {
+        //Seteamos el listener al hacer click del register
+        binding.register.setOnClickListener {
+            if (binding.email.text!!.isNotEmpty() && binding.password.text!!.isNotEmpty()) {
+                // Hacemos uso de los métodos que nos provee Firebase para poder realizar un registro en su plataforma
+                FirebaseAuth.getInstance().createUserWithEmailAndPassword(
+                    binding.email.text.toString(),
+                    binding.password.text.toString()
+                ).addOnCompleteListener {
+                    // Manejamos las posibles respuestas
+                    if (it.isSuccessful) {
+                        navigatetoHome(it.result.user?.email ?: "", ProviderType.BASIC)
+                    } else {
+                        mensajeError("Ha habido un error con el registro, por favor, inténtelo de nuevo")
+                    }
+                }
+            }
+        }
+
+        //Seteamos el listener al hacer click del login
+        binding.login.setOnClickListener {
+            if (binding.email.text!!.isNotEmpty() && binding.password.text!!.isNotEmpty()) {
+                // Hacemos uso de los métodos que nos provee Firebase para poder realizar un login en su plataforma
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(
+                    binding.email.text.toString(),
+                    binding.password.text.toString()
+                ).addOnCompleteListener {
+                    // Manejamos las posibles respuestas
+                    if (it.isSuccessful) {
+                        navigatetoHome(it.result.user?.email ?: "", ProviderType.BASIC)
+                    } else {
+                        mensajeError("Se ha producido un error en la autenticación del usuario")
+                    }
+                }
+            }
+        }
     }
 
     private fun navigatetoHome(email: String, provider: ProviderType){
