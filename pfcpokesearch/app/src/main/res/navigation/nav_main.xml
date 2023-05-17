@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/nav_main">
-    <fragment
-        android:id="@+id/favorite_fragment"
-        android:name="com.sergio.pfcpokesearch.ui.view.fragments.FavoriteFragment"
-        />
 
     <fragment
         android:id="@+id/home_fragment"
@@ -14,6 +10,11 @@
     <fragment
         android:id="@+id/search_fragment"
         android:name="com.sergio.pfcpokesearch.ui.view.fragments.SearchFragment"
+        />
+
+    <fragment
+        android:id="@+id/favorite_fragment"
+        android:name="com.sergio.pfcpokesearch.ui.view.fragments.FavoriteFragment"
         />
 
     <fragment

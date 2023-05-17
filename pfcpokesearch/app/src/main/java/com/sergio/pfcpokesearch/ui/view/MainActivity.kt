@@ -20,9 +20,9 @@ enum class ProviderType {
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val favoriteFragment = FavoriteFragment()
     private val homeFragment = HomeFragment()
     private val searchFragment = SearchFragment()
+    private val favoriteFragment = FavoriteFragment()
     private val optionsFragment = OptionsFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,13 +41,13 @@ class MainActivity : AppCompatActivity() {
         prefs.putString("provider", provider)
         prefs.apply()
 
-        replaceFragment(favoriteFragment)
+        replaceFragment(homeFragment)
 
         // Asigna a cada click del bottom nav bar una función, en este caso reemplazar la vista
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId) {
-                R.id.favoriteFragment -> replaceFragment(favoriteFragment)
                 R.id.homeFragment -> replaceFragment(homeFragment)
+                R.id.favoriteFragment -> replaceFragment(favoriteFragment)
                 R.id.searchFragment -> replaceFragment(searchFragment)
                 R.id.optionsFragment -> replaceFragment(optionsFragment)
             }
