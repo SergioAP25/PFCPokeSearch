@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         replaceFragment(favoriteFragment)
 
-        // Asignamos a cada click del bottom nav bar una función, en este caso reemplazar la vista
+        // Asigna a cada click del bottom nav bar una función, en este caso reemplazar la vista
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.favoriteFragment -> replaceFragment(favoriteFragment)
