@@ -12,6 +12,11 @@ import com.sergio.pfcpokesearch.ui.view.fragments.OptionsFragment
 import com.sergio.pfcpokesearch.ui.view.fragments.SearchFragment
 import dagger.hilt.android.AndroidEntryPoint
 
+// Enum para cada tipo de proveedor de login
+enum class ProviderType {
+    BASIC,
+    GOOGLE
+}
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -21,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private val optionsFragment = OptionsFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -37,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         replaceFragment(favoriteFragment)
 
+        // Asigna a cada click del bottom nav bar una función, en este caso reemplazar la vista
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.favoriteFragment -> replaceFragment(favoriteFragment)
@@ -48,6 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Función de conveniencia que recibe un fragment y reemplaza la vista actual por dicho fragment
     private fun replaceFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_activity_frame_layout, fragment)
