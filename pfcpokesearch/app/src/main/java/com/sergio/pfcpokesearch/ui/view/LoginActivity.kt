@@ -37,6 +37,7 @@ class LoginActivity: AppCompatActivity() {
         // Asigna la vista del binding
         setContentView(binding.root)
         initUI()
+        session()
     }
 
     private fun initUI() {
