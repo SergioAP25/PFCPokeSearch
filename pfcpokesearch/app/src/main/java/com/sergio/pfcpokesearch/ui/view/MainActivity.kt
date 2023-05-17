@@ -24,10 +24,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //Recoge los valores pasados por el intent
         val bundle = intent.extras
         val email = bundle?.getString("email")
         val provider = bundle?.getString("provider")
 
+        // Almacena la info de la sesión en las sharedpreferences
         val prefs = getSharedPreferences("PokeSearch", Context.MODE_PRIVATE).edit()
         prefs.putString("email", email)
         prefs.putString("provider", provider)
