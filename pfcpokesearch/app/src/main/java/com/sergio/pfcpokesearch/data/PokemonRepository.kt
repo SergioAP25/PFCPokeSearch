@@ -105,4 +105,110 @@ class PokemonRepository @Inject constructor(
         val response = pokemonDao.getPokemonByNameFilteredByMultiTypeZA(name, type1, type2)
         return response.map { it.toDomain() }
     }
+
+    // Las siguientes llamadas recuperan pokemons de la base de datos (en la tabla favoritos) en todas las posibles combinaciones de filtros que la app posee
+    suspend fun getFavoritePokemonsByName(name: String): List<FilteredPokemon> {
+        val response = pokemonDao.getFavoritePokemonByName(name)
+        return response.map { it.toDomain() }
+    }
+
+    suspend fun getFavoritePokemonsByNameAZ(name: String): List<FilteredPokemon> {
+        val response = pokemonDao.getFavoritePokemonByNameAZ(name)
+        return response.map { it.toDomain() }
+    }
+
+    suspend fun getFavoritePokemonsByNameZA(name: String): List<FilteredPokemon> {
+        val response = pokemonDao.getFavoritePokemonByNameZA(name)
+        return response.map { it.toDomain() }
+    }
+
+    suspend fun getFavoritePokemonsFromDatabaseByNameFilteredByType(name: String, type1: String): List<FilteredPokemon>{
+        val response = pokemonDao.getFavoritePokemonByNameFilteredByType(name, type1)
+        return response.map { it.toDomain() }
+    }
+
+    suspend fun getFavoritePokemonsFromDatabaseByNameFilteredByTypeAZ(name: String, type1: String): List<FilteredPokemon>{
+        val response = pokemonDao.getFavoritePokemonByNameFilteredByTypeAZ(name, type1)
+        return response.map { it.toDomain() }
+    }
+
+    suspend fun getFavoritePokemonsFromDatabaseByNameFilteredByTypeZA(name: String, type1: String): List<FilteredPokemon>{
+        val response = pokemonDao.getFavoritePokemonByNameFilteredByTypeZA(name, type1)
+        return response.map { it.toDomain() }
+    }
+
+    suspend fun getFavoritePokemonsFromDatabaseByNameFilteredByMultiType(name: String, type1: String, type2: String): List<FilteredPokemon>{
+        val response = pokemonDao.getFavoritePokemonByNameFilteredByMultiType(name, type1, type2)
+        return response.map { it.toDomain() }
+    }
+
+    suspend fun getFavoritePokemonsFromDatabaseByNameFilteredByMultiTypeAZ(name: String, type1: String, type2: String): List<FilteredPokemon>{
+        val response = pokemonDao.getFavoritePokemonByNameFilteredByMultiTypeAZ(name, type1, type2)
+        return response.map { it.toDomain() }
+    }
+
+    suspend fun getFavoritePokemonsFromDatabaseByNameFilteredByMultiTypeZA(name: String, type1: String, type2: String): List<FilteredPokemon>{
+        val response = pokemonDao.getFavoritePokemonByNameFilteredByMultiTypeZA(name, type1, type2)
+        return response.map { it.toDomain() }
+    }
+
+    // Llamada que recupera un pokemon aleatorio de la base de datos y convertir los datos al modelo de la capa de dominio
+    suspend fun getRandomPokemonFromDatabase(): FilteredPokemon{
+        var response = pokemonDao.getRandomPokemon()
+        // Si la respuesta es null, que es posible que se dé el caso a pesar de que android dice lo contrario devuelve el pokemon by default
+        if(response==null){
+            response = defaultPokemon
+        }
+        return response.toDomain()
+    }
+
+    // Llamada que recupera las descripciones de un pokemon cuyo nombre se pasa por parámetro
+    // de la base de datos y convertir los datos al modelo de la capa de dominio
+    suspend fun getPokemonDescriptionsFromDatabase(name: String): PokemonDescription {
+        var response = pokemonDao.getPokemonDescriptions(name)
+        if (response==null){
+            // Si la respuesta es null, que es posible que se dé el caso a pesar de que android dice lo contrario devuelve las descripciones by default
+            response = defaultDescriptions
+        }
+        return response.toDomain()
+    }
+
+    // Devuelve el total de pokemons
+    suspend fun countPokemons(): Int{
+        return pokemonDao.countPokemons()
+    }
+
+    // Devuelve el total de descripciones
+    suspend fun countDescriptions(): Int{
+        return descriptionsDao.countDescriptions()
+    }
+
+    // Inserta pokemons en la bd
+    suspend fun insertPokemon(pokemon : PokemonEntity){
+        pokemonDao.insertPokemon(pokemon)
+    }
+
+    // Inserta descripciones en la bd
+    suspend fun insertPokemonDescription(id:Int, descriptions : List<Description>){
+        descriptionsDao.insertPokemonDescriptions(id, descriptions)
+    }
+
+    // Comprueba si existe un pokemon en la bd
+    suspend fun exists(name: String): Boolean{
+        return pokemonDao.exists(name)
+    }
+
+    // Añade un pokemon a la tabla de favoritos de la bd
+    suspend fun addFavorite(name: String){
+        favoritesDao.addFavorite(name)
+    }
+
+    // Elimina un pokemon de la tabla de favoritos de la bd
+    suspend fun removeFavorite(name: String){
+        favoritesDao.removeFavorite(name)
+    }
+    // Comprueba si un pokemon es favorito en la bd
+    suspend fun isFavority(name: String): Boolean{
+        return favoritesDao.isFavorite(name)
+    }
 }
