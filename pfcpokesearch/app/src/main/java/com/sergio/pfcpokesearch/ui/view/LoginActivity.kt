@@ -51,7 +51,7 @@ class LoginActivity: AppCompatActivity() {
                 ).addOnCompleteListener {
                     // Maneja las posibles respuestas
                     if (it.isSuccessful) {
-                        navigatetoHome(it.result.user?.email ?: "", ProviderType.BASIC)
+                         navigatetoHome(it.result.user?.email ?: "", ProviderType.BASIC)
                     } else {
                         mensajeError("Ha habido un error con el registro, por favor, inténtelo de nuevo")
                     }
