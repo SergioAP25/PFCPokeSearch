@@ -47,5 +47,53 @@ class PokemonViewModel @Inject constructor(
     var updateScope: Job? = null
     var scope: Job? = null
 
+    // Función encargada de gestionar la búsqueda de pokemons en la base de datos
+    fun pokemonSearch(pokemonName: String, ordering: String, types: List<String>) {
+        // Iniciamos corrutina en un hilo a parte y se almacena en scope
+        scope = viewModelScope.launch {
+            // Posteamos valores en el holder en este caso el de carga para indicar que comienza
+            // la petición a la BD
+            isLoading.postValue(true)
+            // Petición de lista de pokemons a través de la función typeFilteredSearch
+            val pokemons = typeFilteredSearch(pokemonName, ordering, types)
+            pokemonModel.postValue(pokemons)
+            // Posteamos valores en el holder en este caso el de carga para indicar que finalizó
+            // la petición a la BD
+            isLoading.postValue(false)
+
+        }
+    }
+    // Función que devuelve la respuesta en función del tipo de filtrado que se necesita aplicar
+    // según los datos recibidos
+    suspend fun typeFilteredSearch(pokemonName: String, ordering: String, types: List<String>): List<FilteredPokemon> {
+        var pokemons: List<FilteredPokemon> = emptyList()
+        when(ordering){
+            "" -> {
+                when(types.size){
+                    0 -> pokemons = getPokemonsByName(pokemonName)
+                    1 -> pokemons = getPokemonsByNameFilteredByType(pokemonName, types[0])
+                    2 -> pokemons = getPokemonsByNameFilteredByMultiType(pokemonName, types[0], types[1])
+                }
+            }
+
+            "az" -> {
+                when(types.size){
+                    0 -> pokemons = getPokemonsByNameAZ(pokemonName)
+                    1 -> pokemons = getPokemonsByNameFilteredByTypeAZ(pokemonName, types[0])
+                    2 -> pokemons = getPokemonsByNameFilteredByMultiTypeAZ(pokemonName, types[0], types[1])
+                }
+            }
+
+            "za" -> {
+                when(types.size){
+                    0 -> pokemons = getPokemonsByNameZA(pokemonName)
+                    1 -> pokemons = getPokemonsByNameFilteredByTypeZA(pokemonName, types[0])
+                    2 -> pokemons = getPokemonsByNameFilteredByMultiTypeZA(pokemonName, types[0], types[1])
+                }
+            }
+        }
+        return pokemons
+    }
+
 
 }
