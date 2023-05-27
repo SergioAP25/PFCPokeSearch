@@ -49,20 +49,37 @@ class PokemonViewModel @Inject constructor(
 
     // Función encargada de gestionar la búsqueda de pokemons en la base de datos
     fun pokemonSearch(pokemonName: String, ordering: String, types: List<String>) {
-        // Iniciamos corrutina en un hilo a parte y se almacena en scope
+        // Inicia una corrutina en un hilo a parte y se almacena en scope
         scope = viewModelScope.launch {
-            // Posteamos valores en el holder en este caso el de carga para indicar que comienza
+            // Postea valores en el holder en este caso el de carga para indicar que comienza
             // la petición a la BD
             isLoading.postValue(true)
             // Petición de lista de pokemons a través de la función typeFilteredSearch
             val pokemons = typeFilteredSearch(pokemonName, ordering, types)
+            // Postea valores en el holder de la lista de pokemons
             pokemonModel.postValue(pokemons)
-            // Posteamos valores en el holder en este caso el de carga para indicar que finalizó
+            // Postea valores en el holder en este caso el de carga para indicar que finalizó
             // la petición a la BD
             isLoading.postValue(false)
 
         }
     }
+
+    // Funciona igual que la anterior pero para favoritos
+    fun favoritePokemonSearch(pokemonName: String, ordering: String, types: List<String>){
+        scope = viewModelScope.launch {
+            isLoading.postValue(true)
+            val pokemons = typeFilteredFavoriteSearch(pokemonName, ordering, types)
+            pokemonModel.postValue(pokemons)
+            isLoading.postValue(false)
+        }
+    }
+    fun updateDatabase(){
+        updateScope = viewModelScope.launch {
+            getPokemons()
+        }
+    }
+
     // Función que devuelve la respuesta en función del tipo de filtrado que se necesita aplicar
     // según los datos recibidos
     suspend fun typeFilteredSearch(pokemonName: String, ordering: String, types: List<String>): List<FilteredPokemon> {
@@ -89,6 +106,37 @@ class PokemonViewModel @Inject constructor(
                     0 -> pokemons = getPokemonsByNameZA(pokemonName)
                     1 -> pokemons = getPokemonsByNameFilteredByTypeZA(pokemonName, types[0])
                     2 -> pokemons = getPokemonsByNameFilteredByMultiTypeZA(pokemonName, types[0], types[1])
+                }
+            }
+        }
+        return pokemons
+    }
+
+    suspend fun typeFilteredFavoriteSearch(pokemonName: String, ordering: String, types: List<String>): List<FilteredPokemon> {
+        var pokemons: List<FilteredPokemon> = emptyList()
+
+        when(ordering){
+            "" -> {
+                when(types.size){
+                    0 -> pokemons = getFavoritePokemon(pokemonName)
+                    1 -> pokemons = getFavoritePokemonsByNameFilteredByType(pokemonName, types[0])
+                    2 -> pokemons = getFavoritePokemonsByNameFilteredByMultiType(pokemonName, types[0], types[1])
+                }
+            }
+
+            "az" -> {
+                when(types.size){
+                    0 -> pokemons = getFavoritePokemonAZ(pokemonName)
+                    1 -> pokemons = getFavoritePokemonsByNameFilteredByTypeAZ(pokemonName, types[0])
+                    2 -> pokemons = getFavoritePokemonsByNameFilteredByMultiTypeAZ(pokemonName, types[0], types[1])
+                }
+            }
+
+            "za" -> {
+                when(types.size){
+                    0 -> pokemons = getFavoritePokemonZA(pokemonName)
+                    1 -> pokemons = getFavoritePokemonsByNameFilteredByTypeZA(pokemonName, types[0])
+                    2 -> pokemons = getFavoritePokemonsByNameFilteredByMultiTypeZA(pokemonName, types[0], types[1])
                 }
             }
         }
