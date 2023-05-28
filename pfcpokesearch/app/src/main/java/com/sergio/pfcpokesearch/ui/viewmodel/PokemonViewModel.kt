@@ -65,7 +65,7 @@ class PokemonViewModel @Inject constructor(
         }
     }
 
-    // Funciona igual que la anterior pero para favoritos
+    // Función encargada de gestionar la búsqueda de pokemons favoritos en la base de datos
     fun favoritePokemonSearch(pokemonName: String, ordering: String, types: List<String>){
         scope = viewModelScope.launch {
             isLoading.postValue(true)
@@ -74,6 +74,8 @@ class PokemonViewModel @Inject constructor(
             isLoading.postValue(false)
         }
     }
+
+    // Función encargada de llamar al caso de uso que actualiza la base de datos
     fun updateDatabase(){
         updateScope = viewModelScope.launch {
             getPokemons()
@@ -112,6 +114,8 @@ class PokemonViewModel @Inject constructor(
         return pokemons
     }
 
+    // Función que devuelve la respuesta en función del tipo de filtrado que se necesita aplicar
+    // según los datos recibidos
     suspend fun typeFilteredFavoriteSearch(pokemonName: String, ordering: String, types: List<String>): List<FilteredPokemon> {
         var pokemons: List<FilteredPokemon> = emptyList()
 
@@ -143,5 +147,19 @@ class PokemonViewModel @Inject constructor(
         return pokemons
     }
 
+    // Función encargada de llamar al caso de uso que añade favoritos a la base de datos
+    suspend fun addFavoritePokemon(name: String){
+        addFavorite(name)
+    }
+
+    // Función encargada de llamar al caso de uso que elimina favoritos de la base de datos
+    suspend fun removeFavoritePokemon(name: String){
+        removeFavorite(name)
+    }
+
+    // Función encargada de llamar al caso de uso que comprueba si un pokemon es favorito en la base de datos
+    suspend fun isFavoritePokemon(name: String): Boolean{
+        return isFavorite(name)
+    }
 
 }
