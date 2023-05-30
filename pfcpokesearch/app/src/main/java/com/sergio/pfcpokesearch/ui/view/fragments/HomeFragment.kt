@@ -33,6 +33,68 @@ class HomeFragment @Inject constructor(): Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         pokemonDetailViewModel = ViewModelProvider(this).get(PokemonDetailViewModel::class.java)
 
+        // Si el hilo del detailviewmodel no es nulo, lo cancela
+        if(pokemonDetailViewModel.scope!=null){
+            pokemonDetailViewModel.scope!!.cancel()
+        }
+        // Invoca a la función del viewmodel
+        pokemonDetailViewModel.homeFragmentCreate()
+
+        // Observa cambios en el live data pokemonModel y ejecuta el código en consecuencia
+        pokemonDetailViewModel.pokemonModel.observe(viewLifecycleOwner, Observer {pokemon ->
+            // Aquí dentro se adjudica la información necesaria al XML
+            Picasso.get().load(pokemon?.sprites?.front_default).into(binding.pokemonImage)
+            binding.pokemonName.text = pokemon?.name
+
+            updateStatBar(binding.hp, pokemon?.stats?.get(0)?.base_stat)
+            updateStatBar(binding.attack, pokemon?.stats?.get(1)?.base_stat)
+            updateStatBar(binding.defense, pokemon?.stats?.get(2)?.base_stat)
+            updateStatBar(binding.specialAttack, pokemon?.stats?.get(3)?.base_stat)
+            updateStatBar(binding.specialDefense, pokemon?.stats?.get(4)?.base_stat)
+            updateStatBar(binding.speed, pokemon?.stats?.get(5)?.base_stat)
+
+            bindTypes(pokemon)
+
+            binding.height1.text = (pokemon?.height?.toFloat()?.div(10)).toString()+" m"
+            binding.weight1.text = (pokemon?.weight?.toFloat()?.div(10)).toString()+" kg"
+
+            // Click listener del botón para ir a la ventana de fullscreenimage
+            binding.pokemonImage.setOnClickListener {
+                navigateToFullImage(pokemon?.sprites?.front_default!!)
+            }
+
+            // Corrutina encargada de ver si un pokemon es favorito y marcar o desmarcar la estrella
+            // en consecuencia
+            CoroutineScope(Dispatchers.IO).launch {
+                if(!pokemonDetailViewModel.isFavoritePokemon(pokemon!!.name)){
+                    binding.boton.setBackgroundResource(R.drawable.baseline_star_border_24)
+                }
+                else{
+                    binding.boton.setBackgroundResource(R.drawable.baseline_star_24)
+                }
+            }
+
+            // Click listener del botón de favorito encargado de marcarla y añadir a favoritos
+            // o desmarcarla y eliminar de favoritos dentro de una corrutina
+            binding.boton.setOnClickListener {
+                CoroutineScope(Dispatchers.IO).launch {
+                    if(!pokemonDetailViewModel.isFavoritePokemon(pokemon!!.name)){
+                        pokemonDetailViewModel.addFavoritePokemon(pokemon.name)
+                        binding.boton.setBackgroundResource(R.drawable.baseline_star_24)
+                    }
+                    else{
+                        pokemonDetailViewModel.removeFavoritePokemon(pokemon.name)
+                        binding.boton.setBackgroundResource(R.drawable.baseline_star_border_24)
+                    }
+                }
+            }
+        })
+
+        // Observer que detecta cambios en el live data pokemonDescription y ejecuta el código
+        pokemonDetailViewModel.pokemonDescription.observe(viewLifecycleOwner, Observer { pokemonDescription ->
+            binding.description.text = pokemonDescription
+        })
+
         return binding.root
     }
 
