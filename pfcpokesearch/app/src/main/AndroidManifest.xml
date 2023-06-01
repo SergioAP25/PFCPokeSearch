@@ -26,6 +26,16 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan">
         </activity>
+        <activity
+            android:name=".ui.view.DetailActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+            android:name=".ui.view.FullScreenImageActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
     </application>
 
 </manifest>
