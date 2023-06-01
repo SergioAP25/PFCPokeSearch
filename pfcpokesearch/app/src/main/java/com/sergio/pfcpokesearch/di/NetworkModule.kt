@@ -20,8 +20,8 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit {
-        // Haciendo uso de la librería retrofit creamos el punto de llamada a la api
-        // y con la librería Gson le asignamos un converter para transformar los JSON en
+        // Haciendo uso de la librería retrofit crea el punto de llamada a la api
+        // y con la librería Gson le asigna un converter para transformar los JSON en
         // datos usables
         return Retrofit.Builder()
             .baseUrl("https://pokeapi.co/api/v2/")
@@ -29,7 +29,7 @@ object NetworkModule {
             .build()
     }
 
-    // Creamos el proveedor para el ApiClient
+    // Crea el proveedor para el ApiClient
     @Singleton
     @Provides
     fun providePokemonApiClient(retrofit: Retrofit): PokemonApiClient {
