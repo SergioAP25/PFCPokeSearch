@@ -33,6 +33,8 @@ class HomeFragment @Inject constructor(): Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         pokemonDetailViewModel = ViewModelProvider(this).get(PokemonDetailViewModel::class.java)
 
+        configSwipe()
+
         // Si el hilo del detailviewmodel no es nulo, lo cancela
         if(pokemonDetailViewModel.scope!=null){
             pokemonDetailViewModel.scope!!.cancel()
