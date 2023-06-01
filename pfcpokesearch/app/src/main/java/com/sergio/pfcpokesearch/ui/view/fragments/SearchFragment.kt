@@ -37,9 +37,11 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = FragmentSearchBinding.inflate(layoutInflater)
         // Asigna a la variable el viewmodel correspondiente
         pokemonViewModel = ViewModelProvider(this).get(PokemonViewModel::class.java)
+
 
         // Inicialización de la lista de botones con cada una de sus views
         buttonList = listOf(binding.normal, binding.fire, binding.water, binding.grass,
