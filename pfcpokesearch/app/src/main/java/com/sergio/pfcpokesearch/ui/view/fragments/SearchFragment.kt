@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.sergio.pfcpokesearch.databinding.FragmentSearchBinding
 import com.sergio.pfcpokesearch.domain.model.FilteredPokemon
 import com.sergio.pfcpokesearch.ui.view.DetailActivity
@@ -45,7 +47,64 @@ class SearchFragment : Fragment() {
             binding.poison, binding.fighting, binding.psychic, binding.dark,
             binding.rock, binding.bug, binding.ghost, binding.steel, binding.dragon, binding.fairy)
 
+        // Llamada a initUI que inicializa la interfaz
+        initUI()
+
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Notifica al adapter del recyclerview que ha cambiado la información
+        adapter.notifyDataSetChanged()
+    }
+
+    // Función encargada de inicializar la UI
+    private fun initUI(){
+        // Invoca todos los métodos con que configuran la UI
+        configSwipe()
+        loadButtonState()
+        initOrderingButtons()
+        initButtons()
+        // Asigna al adapter los valores necesarios para su constructor, en este caso
+        // una lista y funciones
+        adapter = PokemonAdapter(emptyList(), this::navigatetoDetail, this::addFavorite,
+            this::removeFavorite, this::isFavorite)
+        // Gestiona si el recyclerview tiene un tamaño fijo
+        binding.rvPokemon.setHasFixedSize(true)
+        // Asigna un layout al recyclerview
+        binding.rvPokemon.layoutManager = LinearLayoutManager(context)
+        // Asigna el adapter al recyclerview
+        binding.rvPokemon.adapter = adapter
+        observer("")
+
+        // Inicializa la barra de búsqueda
+        binding.searchbar.setOnQueryTextListener(object:
+            SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            // Cada vez que su texto cambia llama a esta función
+            override fun onQueryTextChange(query: String?): Boolean {
+                // Asigna a la variable last query la query o un String vacío
+                lastQuery = query.orEmpty()
+                // Llama a la función observer para que actualice la lista
+                observer(query.orEmpty())
+                return false
+            }
+        })
+    }
+
+    // Función que al hacer swipe en la actividad recarga el fragment
+    private fun configSwipe(){
+        binding.searchSwipe.setOnRefreshListener {
+            parentFragmentManager.beginTransaction()
+                .detach(this).commit()
+            parentFragmentManager.beginTransaction()
+                .attach(this).commit()
+            binding.searchSwipe.isRefreshing = false
+        }
     }
 
     // Función que inicializa los observer del viewmodel
@@ -77,6 +136,8 @@ class SearchFragment : Fragment() {
         pokemonViewModel.pokemonModel.observe(viewLifecycleOwner, Observer {pokemon ->
             // Cuando la lista cambia en pokemonModel asigna los nuevos pokemon al recyclerview
             adapter.setData(pokemon)
+            // Llama a manageVisibility para gestionar cuando se ve el recyclerview o cuando no
+            // dependiendo de si la búsqueda arroja algún resultado
             manageVisibility(pokemon)
         })
     }
