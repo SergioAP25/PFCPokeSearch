@@ -28,5 +28,10 @@ width="200" hspace="10" vspace="10">
 - Room
 - [Picasso](https://square.github.io/picasso/).
 
+## Información adicional
+Los datos se van recogiendo de la Api e insertando uno a uno en la base de datos, por defecto la pestaña de Home mostrará a Bulbasaur, pero puede que la pestaña de Pokédex
+aparezca vacía en un inicio. Aunque la carga de datos esté en progreso la aplicación se puede seguir utilizando igual, tan solo haz swipe en la pestaña de Pokédex o cambia
+de pestaña y vuelve para ver cómo van apareciendo los Pokemon ya insertados en la base de datos.
+
 ## Funcionamiento
 Para utilizar la aplicación simplemente habre el proyecto pfcpokesearch en Android Studio y ejecútalo
