@@ -13,12 +13,12 @@ Hecha en Android estudio utilizando [PokeApi](https://pokeapi.co/) y [Firebase](
  - Pantalla de Options donde se muestra el email con el que el usuario ha hecho login y el tipo de proveedor además de poder hacer logout
 
 ## Herramientas y librerías utilizadas
-[PokeApi](https://pokeapi.co/).
-[Firebase](https://firebase.google.com/?hl=es).
-[Retrofit2](https://square.github.io/retrofit/).
-[Dagger Hilt](https://dagger.dev/hilt/).
-Room
-[Picasso](https://square.github.io/picasso/).
+- [PokeApi](https://pokeapi.co/).
+- [Firebase](https://firebase.google.com/?hl=es).
+- [Retrofit2](https://square.github.io/retrofit/).
+- [Dagger Hilt](https://dagger.dev/hilt/).
+- Room
+- [Picasso](https://square.github.io/picasso/).
 
 
 
