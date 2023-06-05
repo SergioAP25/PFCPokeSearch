@@ -12,6 +12,12 @@ Hecha en Android estudio utilizando [PokeApi](https://pokeapi.co/) y [Firebase](
  - Pantalla de Favoritos donde puedes ver tus Pokemon favoritos y filtrarlos como en Pokédex
  - Pantalla de Options donde se muestra el email con el que el usuario ha hecho login y el tipo de proveedor además de poder hacer logout
 
+## Capturas de pantalla
+<img src="screenshots/pokedex.png" align="left"
+width="200" hspace="10" vspace="10">
+<img src="screenshots/detail.png" align="center"
+width="200" hspace="10" vspace="10">
+
 ## Herramientas y librerías utilizadas
 - [PokeApi](https://pokeapi.co/).
 - [Firebase](https://firebase.google.com/?hl=es).
