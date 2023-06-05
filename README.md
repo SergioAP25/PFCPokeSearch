@@ -1,7 +1,24 @@
 # PFCPokeSearch
-Proyecto en progreso!
 
-De momento la aplicación consta con un registro funcional (aunque no hay aviso si el registro se completa correctamente) 
-y 2 sistemas de login, básico (con la cuenta que registras) y con google  
-  
-**Advertencia si vas a usar el login con Google asegúrate de que tu emulador pueda hacerlo, el login es plenamente funcional**
+PokeSearch es una aplicación Android de código abierto que permite buscar, filtrar y obtener información detallada
+sobre cualquier Pokemon existente.
+Hecha en Android estudio utilizando [PokeApi](https://pokeapi.co/) y [Firebase](https://firebase.google.com/?hl=es).
+
+## Características
+ - Sistema de login y registro básicos utilizando Firebase.
+ - Sistema de login con Google utilizando Firebase.
+ - Pantalla de Home que genera información sobre un Pokemon aleatorio.
+ - Pantalla Pokédex donde se pueden filtrar Pokemon mediante filtros y sus combinaciones además de la posibilidad de añadirlos a favoritos
+ - Pantalla de Favoritos donde puedes ver tus Pokemon favoritos y filtrarlos como en Pokédex
+ - Pantalla de Options donde se muestra el email con el que el usuario ha hecho login y el tipo de proveedor además de poder hacer logout
+
+## Herramientas y librerías utilizadas
+[PokeApi](https://pokeapi.co/).
+[Firebase](https://firebase.google.com/?hl=es).
+[Retrofit2](https://square.github.io/retrofit/).
+[Dagger Hilt](https://dagger.dev/hilt/).
+Room
+[Picasso](https://square.github.io/picasso/).
+
+
+
