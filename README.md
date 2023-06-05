@@ -28,5 +28,5 @@ width="200" hspace="10" vspace="10">
 - Room
 - [Picasso](https://square.github.io/picasso/).
 
-
-
+## Funcionamiento
+Para utilizar la aplicación simplemente habre el proyecto pfcpokesearch en Android Studio y ejecútalo
