@@ -10,6 +10,8 @@ Hecha en Android estudio utilizando [PokeApi](https://pokeapi.co/) y [Firebase](
  - Pantalla de Home que genera información sobre un Pokemon aleatorio.
  - Pantalla Pokédex donde se pueden filtrar Pokemon mediante filtros y sus combinaciones además de la posibilidad de añadirlos a favoritos
  - Pantalla de Favoritos donde puedes ver tus Pokemon favoritos y filtrarlos como en Pokédex
+ - Pantalla Detalle a la cual se accede al hacer click en un Pokemon la cual muestra información del Pokemon seleccionado
+ - Pantalla Imagen Completa a la cual se accede al hacer click en la imagen en la ventana de Detalle la cual muestra la imagen en pantalla completa
  - Pantalla de Options donde se muestra el email con el que el usuario ha hecho login y el tipo de proveedor además de poder hacer logout
 
 ## Capturas de pantalla
