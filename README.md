@@ -1,4 +1,4 @@
-# PFCPokeSearch
+# PokeSearch
 
 PokeSearch es una aplicación Android de código abierto que permite buscar, filtrar y obtener información detallada
 sobre cualquier Pokemon existente.
